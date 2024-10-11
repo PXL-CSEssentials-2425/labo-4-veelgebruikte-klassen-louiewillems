@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -96,7 +97,59 @@ namespace PasswordMeter
                         break;
                 }
 
-                //resultTextBlock.Text = "Succesfull logged in";
+
+                //create passWord deel 2
+
+                StringBuilder sb = new StringBuilder();
+                Random rand = new Random();
+
+                for (int i = 0; i < 5; i++)
+                {
+                    int startIndex = rand.Next(0, userName.Length - 1);
+
+                    string letter = userName.Substring(startIndex, 1);
+                    sb.Append(letter);
+
+                }
+
+                for (int i = 0; i < 5; i++)
+                {
+                    sb.Append(rand.Next(9).ToString());
+                }
+
+                for (int i = 0; i < 2; i++)
+                {
+                    var nRand = rand.Next(0, userName.Length - 1);
+                    sb.Append(userName.Substring(nRand, 1).ToUpper());
+                }
+
+                for (int i = 0; i < rand.Next(0, 6); i++)
+                {
+                    sb.Append("!");
+                }
+
+                string wachtwoord = sb.ToString();
+                //MessageBoxResult result = MessageBox.Show($"Zwak wachtwoord: {wachtwoord}", "Wilt je dit wachtwoord gebruiken", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                //if (result == MessageBoxResult.Yes)
+                //{
+                //    resultTextBlock.Text = wachtwoord;
+                //}
+                //else
+                //{
+                //    //resultTextBlock.Text = $"";
+                //}
+
+                string input = Interaction.InputBox("Reset wachtwoord", "Reset?", wachtwoord);
+
+                if (!string.IsNullOrEmpty(input))
+                {
+                    password = input;
+                    passwordTextBox.Text = password;
+                }
+
+
+
 
             }
 
